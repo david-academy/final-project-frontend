@@ -96,7 +96,7 @@ export default class SinglePlan extends Component {
                                 <Paper className="root" style={style.sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
                                         {referencePictures.map(picture => (
-                                            <div data-src={"http://suomen-kuvapalvelu.s3-eu-west-1.amazonaws.com/"+picture.url}/>))}
+                                            <div data-src={picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
                             </Container>}
