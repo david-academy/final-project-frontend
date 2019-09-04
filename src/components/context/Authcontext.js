@@ -17,7 +17,7 @@ class AuthProvider extends Component {
     const userData = { username, password };
     console.log(userData)
     return axios
-      .post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/login", userData)
+      .post("https://skpback.herokuapp.com/login", userData)
       .then(res => {
         console.log("REDIRECT");
         console.log(res.headers.authorization);
@@ -49,7 +49,7 @@ class AuthProvider extends Component {
     const username = userdata.username
     const password = userdata.password
     const sendData = {email, username, password}
-    return axios.post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/users/sign-up", sendData)
+    return axios.post("https://skpback.herokuapp.com/api/users/sign-up", sendData)
       .then(res => {
         return res
       })
@@ -63,7 +63,7 @@ class AuthProvider extends Component {
 
   getData = (params) => {
     return axios
-      .get("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/" + params, {
+      .get("https://skpback.herokuapp.com/api/" + params, {
         headers: {
           authorization: this.state.token
         }
@@ -78,7 +78,7 @@ class AuthProvider extends Component {
   }
 
   postData = (params, data) => {
-    return axios.post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/" + params, data, {
+    return axios.post("https://skpback.herokuapp.com/api/" + params, data, {
       headers: {
         authorization: this.state.token
       }
@@ -92,7 +92,7 @@ class AuthProvider extends Component {
   }
 
   updateData = (id, params) => {
-    return axios.put("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/" + id, params, {
+    return axios.put("https://skpback.herokuapp.com/api/plans/" + id, params, {
       headers: {
         authorization: this.state.token
       }
@@ -106,7 +106,7 @@ class AuthProvider extends Component {
 
   //lisäys 26.08.2019 klo20:45
   getById = (id) => {
-    return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/' + id)
+    return axios.get('https://skpback.herokuapp.com/api/' + id)
         .then((response) => response)
         .catch(err => {
           return err
@@ -114,14 +114,14 @@ class AuthProvider extends Component {
   };
 
   deletePlan = (id) => {
-    return axios.delete('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' +id,{
+    return axios.delete('https://skpback.herokuapp.com/plans/' +id,{
       headers: {
         authorization: this.state.token
       }})
   };
 
   addReferencepictures = (id, params) => {
-    return axios.put("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/" + id + "/pictures", params, {
+    return axios.put("https://skpback.herokuapp.com/api/plans/" + id + "/pictures", params, {
           headers: {
               authorization: this.state.token
           }

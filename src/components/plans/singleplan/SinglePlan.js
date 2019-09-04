@@ -96,7 +96,7 @@ export default class SinglePlan extends Component {
                                 <Paper className="root" style={style.sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
                                         {referencePictures.map(picture => (
-                                            <div data-src={"http://suomen-kuvapalvelu.s3-eu-west-1.amazonaws.com/"+picture.url}/>))}
+                                            <div data-src={"https://skp-datastore.s3-eu-west-1.amazonaws.com/"+picture.url}/>))}
                                     </AwesomeSlider>
                                 </Paper>
                             </Container>}
@@ -146,7 +146,7 @@ export default class SinglePlan extends Component {
                         </div>
                             {!this.state.isHidden &&
                             <div  style={style.mapWrapper}>
-                                <Map width={'65vw'} height={'50vh'}/>
+                                        <Map width={'65vw'} height={'50vh'} />
                             </div>
                             }
                         </Card>

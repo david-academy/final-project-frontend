@@ -15,7 +15,7 @@ export default class Content extends Component {
         const token = localStorage.getItem("Token")
         
         axios
-            .get("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/content/?page=0", {
+            .get("https://skpback.herokuapp.com/api/content/?page=0", {
                 headers: {
                     authorization: token
                 }
@@ -50,7 +50,7 @@ export default class Content extends Component {
         const token = localStorage.getItem("Token");
         this.setState({isLoading: true})
         axios
-            .get("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com//api/content/?page="+this.state.page, {
+            .get("https://skpback.herokuapp.com/api/content/?page="+this.state.page, {
                 headers: {
                     authorization: token
                 }

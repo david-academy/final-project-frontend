@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 export function getAll() {
-    return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/')
+    return axios.get('https://skpback.herokuapp.com/api/plans/')
         .then((response) => response.data)
 }
 
 export function getById(id) {
-    return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' + id)
+    return axios.get('https://skpback.herokuapp.com/api/plans/' + id)
         .then((response) => response)
 }
 
@@ -27,7 +27,7 @@ export function addNew(plan) {
     formData.append("image4", plan.referencephotos[3]);
     formData.append("image5", plan.referencephotos[4]);
 
-    return axios.post('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans', formData, {
+    return axios.post('https://skpback.herokuapp.com/api/plans', formData, {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("Token")
             /* "Content-Type": "multipart/form-data" */
@@ -55,9 +55,9 @@ export function updatePlan(id, plan) {
     formData.set("longitude", plan.longitude);
 
 
-    return axios.put('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/'+ id, plan)
+    return axios.put('https://skpback.herokuapp.com/api/plans/'+ id, plan)
 }
 
 export function deletePlan(id) {
-    return axios.delete('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' + id)
+    return axios.delete('https://skpback.herokuapp.com/api/plans/' + id)
 }
