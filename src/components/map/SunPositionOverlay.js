@@ -14,7 +14,9 @@ export default function SunPositionOverlay(props) {
   const sunPaperStyle = {
     width: "15%",
     float: "left",
-    position: "fixed",
+  /* position: "relative", */
+    marginLeft: '5px',
+    marginTop: '5%',
     bottom: "20px",
     right: "20px",
     minWidth: "200px"

@@ -3,14 +3,8 @@ import { Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
 import {
     Home,
-    Person,
-    Map,
-    Assignment,
     Info,
-    AccountBox,
-    Settings,
-    ExitToApp,
-    About
+    SettingsCell
 } from "@material-ui/icons";
 import LoginModal from "../login/LoginModal";
 import { Consumer } from "../context/Authcontext";
@@ -25,7 +19,9 @@ export const NotLoggedNavbar = () => (
                 
                 <Nav.Link>
                     <Link to="/about"><Info />About</Link></Nav.Link>
-
+                    <Nav.Link>
+                    <Link to="/calculators"><SettingsCell />Calculators</Link></Nav.Link>
+                
             </Nav>
             <Nav>
                 <Nav.Link className="justify-content-end"><LoginModal/><Signup/></Nav.Link>
