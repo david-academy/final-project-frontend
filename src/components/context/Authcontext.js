@@ -17,7 +17,7 @@ class AuthProvider extends Component {
     const userData = { username, password };
     console.log(userData)
     return axios
-      .post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/login", userData)
+      .post("http://localhost:8080/login", userData)
       .then(res => {
         console.log("REDIRECT");
         console.log(res.headers.authorization);
@@ -49,7 +49,7 @@ class AuthProvider extends Component {
     const username = userdata.username
     const password = userdata.password
     const sendData = {email, username, password}
-    return axios.post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/users/sign-up", sendData)
+    return axios.post("http://localhost:8080/api/users/sign-up", sendData)
       .then(res => {
         return res
       })
@@ -63,7 +63,7 @@ class AuthProvider extends Component {
 
   getData = (params) => {
     return axios
-      .get("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/" + params, {
+      .get("http://localhost:8080/api/" + params, {
         headers: {
           authorization: this.state.token
         }
@@ -78,7 +78,7 @@ class AuthProvider extends Component {
   }
 
   postData = (params, data) => {
-    return axios.post("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/" + params, data, {
+    return axios.post("http://localhost:8080/api/" + params, data, {
       headers: {
         authorization: this.state.token
       }
@@ -92,7 +92,7 @@ class AuthProvider extends Component {
   }
 
   updateData = (id, params) => {
-    return axios.put("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/" + id, params, {
+    return axios.put("http://localhost:8080/api/plans/" + id, params, {
       headers: {
         authorization: this.state.token
       }
@@ -106,7 +106,7 @@ class AuthProvider extends Component {
 
   //lisäys 26.08.2019 klo20:45
   getById = (id) => {
-    return axios.get('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/' + id)
+    return axios.get('http://localhost:8080/api/' + id)
         .then((response) => response)
         .catch(err => {
           return err
@@ -114,14 +114,23 @@ class AuthProvider extends Component {
   };
 
   deletePlan = (id) => {
-    return axios.delete('http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/' +id,{
+    return axios.delete('http://localhost:8080/api/plans/' +id,{
       headers: {
         authorization: this.state.token
       }})
   };
 
   addReferencepictures = (id, params) => {
-    return axios.put("http://suomen-kuvapalvelu.eu-west-1.elasticbeanstalk.com/api/plans/" + id + "/pictures", params, {
+      let formData = new FormData();
+      formData.append("image1", params.referencePictures[0]);
+      formData.append("image2", params.referencePictures[1]);
+      formData.append("image3", params.referencePictures[2]);
+      formData.append("image4", params.referencePictures[3]);
+      formData.append("image5", params.referencePictures[4]);
+
+      console.log("Put request from authcontext: ", formData);
+
+    return axios.put("http://localhost:8080/api/plans/" + id + "/pictures", formData, {
           headers: {
               authorization: this.state.token
           }
@@ -132,6 +141,28 @@ class AuthProvider extends Component {
           return err
       })
   };
+
+  addReadyPictures = (id, params) => {
+      let formData = new FormData();
+      formData.append("image1", params.readyPictures[0]);
+      formData.append("image2", params.readyPictures[1]);
+      formData.append("image3", params.readyPictures[2]);
+      formData.append("image4", params.readyPictures[3]);
+      formData.append("image5", params.readyPictures[4]);
+
+      console.log("Put request from authcontext: ", formData);
+
+      return axios.put("http://localhost:8080/api/plans/" + id + "/readypictures", formData, {
+          headers: {
+              authorization: this.state.token
+          }
+      }).then(res => {
+          console.log(res.data);
+          return res.data
+      }).catch(err => {
+          return err
+      })
+    };
 
 
 
@@ -149,6 +180,7 @@ class AuthProvider extends Component {
           updateData: this.updateData,
           deletePlan: this.deletePlan,
             addReferencePictures: this.addReferencepictures,
+            addReadyPictures: this.addReadyPictures,
           AuthContext
         }}
       >
