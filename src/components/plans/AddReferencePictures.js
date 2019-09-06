@@ -1,102 +1,128 @@
-import React, {Component} from 'react';
-import {AuthContext} from "../context/Authcontext";
+import React, {useContext} from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
 import ImageDropZone from "./ImageDropZone";
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import {Redirect} from "react-router-dom";
+import {AuthContext} from "../context/Authcontext";
+import EditPreviousPlan2 from "./EditPreviousPlan2";
 
-class AddReferencePictures extends Component {
-    state= {
-            id: this.props.location.state.plan.id,
-            referencePictures: '',
-            redirect: false
-    };
 
-    setRedirect = () => {this.setState({redirect: true})}
-    renderRedirect = () => {
-        if (this.state.redirect) {
-            return <Redirect to='/plan' />
-        }
-    }
-
-    AuthContext = this.context;
-
-    referencePicChange = (event) => {this.setState({referencePictures: this.state.referencePictures.push(event.target.files[0])})};
-
-    addPictures = (event) => {
-        event.preventDefault();
-        console.log(this.state.referencePictures);
-        this.context.addReferencePictures(this.state.id, this.state.referencePictures);
-        this.setRedirect();
-        //updatePlan(this.state.id, this.state);
-        console.log('addPics', this.state.id, this.state.referencePictures);
-    };
-    render() {
-        return (
-            <div>
-                <Box borderRadius="borderRadius" {...boxWrapper}>
-                    <div style={styling.buttonClose} style={{display: "flex"}} >
-                        {this.renderRedirect()}
-                        <Button  variant="outlined" size="small" style={{marginLeft:"auto"}} onClick={this.setRedirect}>X</Button>
-                    </div>
-                    <div style={styling.menu}>
-                        <h3>Edit your plan details</h3>
-                    </div>
-                    <div
-                        className={styling.imagedrop}
-                        value={this.state.referencePictures}
-                        onChange={this.referencePicChange}>
-                        <p>You can upload max. 5 reference pictures in your plan</p>
-                        <ImageDropZone/>
-
-                    </div>
-                    <div style={styling.button} style={{display: "flex"}}>
-                        <Button size="small" color="default" variant="outlined" onClick={this.addPictures}>
-                            Save
-                        </Button>
-
-                    </div>
-
-                </Box>
-            </div>
-
-        );
-    }
-}
-const styling = {
-    container: {
-        alignItems: 'center',
-        display: 'flex',
-        flexWrap: 'wrap',
-        direction: 'row',
-        justify: 'center',
-        margin: 'normal',
-    }, button: {
-        /*marginBottom: theme.spacing(2),
-        marginTop: theme.spacing(5),
-        marginLeft: theme.spacing(1),*/
-        padding: 7,
+const styles = theme => ({
+    root: {
+        margin: 0,
+        padding: theme.spacing(2),
     },
-    buttonClose: {
-        /* marginTop: theme.spacing(1),
-         marginRight: theme.spacing(1),*/
-        padding: 3,
+    closeButton: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        top: theme.spacing(1),
+        color: theme.palette.grey[500],
     },
+
+});
+
+const DialogTitle = withStyles(styles)(props => {
+    const { children, classes, onClose } = props;
+    return (
+        <MuiDialogTitle disableTypography className={classes.root}>
+            <Typography variant="h6">{children}</Typography>
+            {onClose ? (
+                <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </MuiDialogTitle>
+    );
+});
+
+const DialogContent = withStyles(theme => ({
+    root: {
+        padding: theme.spacing(2),
+    },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles(theme => ({
+    root: {
+        margin: 0,
+        padding: theme.spacing(1),
+    },
+}))(MuiDialogActions);
+
+const ImageDrop = withStyles(theme => ({
     imagedrop: {
-        /* marginLeft: theme.spacing(1),
-         marginRight: theme.spacing(1),*/
-        width: '75%',
-    }
-};
+        paddingLeft:100,
+    },
+}));
 
-const boxWrapper = {
-    bgcolor: 'background.paper',
-    borderColor: 'text.primary',
-    m: 1,
-    border: 1,
-    style: { width: '75%' },
-};
+export default function AddReadyPics(props) {
 
-AddReferencePictures.contextType = AuthContext;
-export default AddReferencePictures;
+    const [values, setValues] = React.useState({
+        referencePictures: [],
+    });
 
+    const exportData = useContext(AuthContext);
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleChange =  event => {
+        setValues({...values, referencePictures: [...values.referencePictures, event.target.files[0]]});
+        console.log(values.referencePictures)
+    };
+
+    const sendPics = (event) => {
+        event.preventDefault();
+        console.log("AddReferencePics, plan id and values : ",props.planid, values);
+        exportData.addReferencePictures(props.planid, values);
+        props.update();
+        console.log("AddReferencePics, calling updatePage function from EditPreviousPlan + props: ", props)
+        handleClose();
+    };
+
+    return (
+        <div>
+            <Button variant="outlined"  color="default"  onClick={handleClickOpen}>
+                Add reference pictures
+            </Button>
+            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+                    Your own photos from the photoshoot
+                </DialogTitle>
+                <DialogContent dividers>
+                    <Typography gutterBottom>
+                        Took some neat photos at your photoshoot and you want to archive them to your plan? You can add them afterwards here!
+                    </Typography>
+                </DialogContent>
+                <div
+                    value={values.referencePictures}
+                    onChange={handleChange}
+                >
+                    <ImageDropZone style={ImageDrop.imagedrop}/>
+                </div>
+
+
+                <DialogActions>
+                    <Button onClick={handleClose} size="small" color="default" variant="outlined">
+                        Delete
+                    </Button>
+                    <Button onClick={sendPics} size="small" color="default" variant="outlined">
+                        Save
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
+}
+
+AddReadyPics.contextType = AuthContext;

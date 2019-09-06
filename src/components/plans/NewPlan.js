@@ -110,7 +110,7 @@ export default function OutlinedTextFields(props) {
          referencephotos:[],
      });
 
-    const onChange = date => setValues({...values, date })
+    const onChange = date => setValues({...values, date });
 
     const handleChange = header => event => {
         setValues({ ...values, [header]: event.target.value});
@@ -121,13 +121,13 @@ export default function OutlinedTextFields(props) {
     };
     const handleCoordinates = header => event => {
         setValues({...values, longitude: event.target.longitude, latitude: event.target.latitude, coordinates: event.target});
-    }
+    };
 
 
     /* sendData sends a POST request to database and cleares + closes the modal*/
     const sendData = (event) => {
         event.preventDefault();
-        console.log(values)
+        console.log(values);
         addNew(values);
         clearData();
     };
