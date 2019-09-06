@@ -6,7 +6,7 @@ export default class Calculators extends Component {
         return (
             <div>
                  <TimelapseCalculator/>
-                {/* <Cropfactor/> */}
+                <Cropfactor/>
             </div>
         )
     }

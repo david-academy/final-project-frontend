@@ -139,90 +139,88 @@ export default class TimelapseCalculator extends Component {
   render() {
     const { choice, options, fps, imageSize } = this.state;
     return (
-        
       <div style={tableStyle2}>
-          <Box borderRadius="borderRadius" style={boxWrapper}>
-            <CalculatorPicker
-              choice={choice}
-              handleChange={this.handleChange("choice")}
-            />
-            <Table>
-              <TableBody>
-                <CalculatorOptions
-                  options={options}
-                  choice={choice}
-                  handleTimeChange={this.handleTimeChange}
-                />
-                {/* </Table>
+        <Box borderRadius="borderRadius" style={boxWrapper}>
+          <CalculatorPicker
+            choice={choice}
+            handleChange={this.handleChange("choice")}
+          />
+          <Table>
+            <TableBody>
+              <CalculatorOptions
+                options={options}
+                choice={choice}
+                handleTimeChange={this.handleTimeChange}
+              />
+              {/* </Table>
         <Table> */}
-                <div>
-                  <TableRow>
-                    <TableCell component="th" scope="row" align="left">
-                      Frames per second
-                    </TableCell>
-                    <TableCell>
-                      <TextField
-                        id={fps}
-                        label="fps"
-                        value={fps}
-                        onChange={this.handleChange("fps")}
-                        type="number"
-                        /* className={classes.textField} */
-                        InputLabelProps={{
-                          shrink: true
-                        }}
-                        margin="normal"
-                      />
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      Image size
-                    </TableCell>
-                    <TableCell align="left">
-                      <TextField
-                        id={imageSize}
-                        label="imageSize"
-                        value={imageSize}
-                        onChange={this.handleChange("imageSize")}
-                        type="number"
-                        /* className={classes.textField} */
-                        InputLabelProps={{
-                          shrink: true
-                        }}
-                        margin="normal"
-                      />
-                    </TableCell>
-                  </TableRow>
-                </div>
-              </TableBody>
-            </Table>
-            <div>
-              <br></br>
-              {this.state.options
-                .filter(opt => opt.id == choice)
-                .map(result => {
-                  return (
-                    <Typography variant="h4">
-                      {result.option} : {this.secondsToTime(result.result)}
-                    </Typography>
-                  );
-                })}
-              <hr></hr>
-              <Typography variant="h4">
-                Total pictures:{" "}
-                {this.optionToSecond(this.state.options[1]) * fps}
-              </Typography>
-              <hr></hr>
-              <Typography variant="h4">
-                Memory usage:{" "}
-                {this.optionToSecond(this.state.options[1]) * fps * imageSize}{" "}
-                MB
-              </Typography>
-            </div>
-          </Box>
+              <div>
+                <TableRow>
+                  <TableCell component="th" scope="row" align="left">
+                    Frames per second
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      variant="outlined"
+                      id={fps}
+                      label="fps"
+                      value={fps}
+                      onChange={this.handleChange("fps")}
+                      type="number"
+                      /* className={classes.textField} */
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      margin="normal"
+                    />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    Image size
+                  </TableCell>
+                  <TableCell >
+                    <TextField
+                      variant="outlined"
+                      id={imageSize}
+                      label="imageSize"
+                      value={imageSize}
+                      onChange={this.handleChange("imageSize")}
+                      type="number"
+                      /* className={classes.textField} */
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      margin="normal"
+                    />
+                  </TableCell>
+                </TableRow>
+              </div>
+            </TableBody>
+          </Table>
+          <div>
+            <br></br>
+            {this.state.options
+              .filter(opt => opt.id == choice)
+              .map(result => {
+                return (
+                  <Typography variant="h4">
+                    {result.option} : {this.secondsToTime(result.result)}
+                  </Typography>
+                );
+              })}
+            <hr></hr>
+            <Typography variant="h4">
+              Total pictures: {this.optionToSecond(this.state.options[1]) * fps}
+            </Typography>
+            <hr></hr>
+            <Typography variant="h4">
+              Memory usage:{" "}
+              {this.optionToSecond(this.state.options[1]) * fps * imageSize} MB
+            </Typography>
+          </div>
+        </Box>
       </div>
-
     );
   }
 }
