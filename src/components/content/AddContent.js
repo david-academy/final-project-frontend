@@ -95,8 +95,6 @@ const handleSubmit = (e) => {
     
     const handleInputChange = (e) => {
         setMsg(e.target.value)
-        console.log(file)
-        console.log(msg)
     }
     const handleFileChange = (e) => {
         setFile(e.target.files[0])    

@@ -14,11 +14,10 @@ import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { testSun } from "./suncalc";
 import DatePicker from "./DatePicker";
-import { Box, Popover } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { addMapLayers } from "./mapsetup.js";
 import Typography from "@material-ui/core/Typography";
 import moment from "moment";
-import Paper from "@material-ui/core/Paper";
 import SunPositionOverlay from "./SunPositionOverlay";
 
 var SunCalc = require("suncalc");
@@ -57,7 +56,6 @@ export default class MapClass extends Component {
     this.context
       .getData("plans")
       .then(res => this.setState({ locations: res }));
-    console.log(this.props);
     const listener = e => {
       if (e.key === "Escape") {
         this.setState({ selectedLocation: null });
@@ -240,7 +238,6 @@ export default class MapClass extends Component {
       sunsetMin,
       sunsetHour
     } = this.state;
-    console.log(this.state);
     return (
       <Box style={{ height: "100%", width: "100%", paddingLeft: 2 }}>
         <DatePicker
@@ -367,7 +364,7 @@ export default class MapClass extends Component {
                 mapRef={this.mapRef}
                 onViewportChange={this.handleGeocoderViewportChange}
                 mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-                position="top-left"
+                position="top-right"
               />
               <SunPositionOverlay
                 suncalc={this.state.suncalc}

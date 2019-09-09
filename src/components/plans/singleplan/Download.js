@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { PDFDownloadLink, Document, Page, Image, View, StyleSheet, Text } from '@react-pdf/renderer';
+import React from 'react';
+import { PDFDownloadLink, Document, Page, StyleSheet, Text } from '@react-pdf/renderer';
 import moment from 'moment';
 
 

@@ -28,7 +28,7 @@ export default function CalculatorPicker(props) {
               
 
               <TableCell>
-                <FormControl style={{ width: "40%", marginRight: "10%" }}>
+                <FormControl style={{ width: "60%", marginRight: "0%" }}>
                   <InputLabel htmlFor="select-calculate"></InputLabel>
                   <Select
                     value={props.choice}

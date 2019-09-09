@@ -92,7 +92,6 @@ export default class TimelapseCalculator extends Component {
   };
 
   optionToSecond = obj => {
-    console.log(obj);
     const hoursToSeconds = obj.hour * 60 * 60;
     const minutesToSeconds = obj.minute * 60;
     const seconds = obj.sec;
@@ -154,9 +153,9 @@ export default class TimelapseCalculator extends Component {
               />
               {/* </Table>
         <Table> */}
-              <div>
+              {/* <div> */}
                 <TableRow>
-                  <TableCell component="th" scope="row" align="left">
+                  <TableCell component="th" scope="row">
                     Frames per second
                   </TableCell>
                   <TableCell>
@@ -179,7 +178,7 @@ export default class TimelapseCalculator extends Component {
                   <TableCell component="th" scope="row">
                     Image size
                   </TableCell>
-                  <TableCell >
+                  <TableCell align="left">
                     <TextField
                       variant="outlined"
                       id={imageSize}
@@ -195,7 +194,7 @@ export default class TimelapseCalculator extends Component {
                     />
                   </TableCell>
                 </TableRow>
-              </div>
+              {/* </div> */}
             </TableBody>
           </Table>
           <div>
@@ -226,10 +225,8 @@ export default class TimelapseCalculator extends Component {
 }
 const boxWrapper = {
   backgroundColor: "ghostwhite",
-  paddingTop: "5%",
-  paddingRight: "5%",
-  paddingLeft: "5%",
-  paddingBottom: 80
+  
+  paddingBottom: 20
 };
 const tableStyle2 = {
   backgroundColor: "ghostwhite",

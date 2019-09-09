@@ -18,9 +18,9 @@ export default function CalculatorOptions(props) {
   };
 
   return (
-    <div>
-      <Table>
-        <TableBody>
+    <React.Fragment>
+      {/* <Table>
+        <TableBody> */}
           {/* <TableBody style={{ width: "100%" }}> */}
           {props.options
             .filter(o => o.id != props.choice)
@@ -81,9 +81,9 @@ export default function CalculatorOptions(props) {
                 </TableRow>
               );
             })}
-        </TableBody>
-      </Table>
+        {/* </TableBody>
+      </Table> */}
       {/* </TableBody> */}
-    </div>
+    </React.Fragment>
   );
 }

@@ -5,13 +5,10 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
@@ -22,9 +19,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "ghostwhite",
     color: "black",
     borderRadius: "borderRadius",
-    margin: "5%",
+    margin: "2%",
     flexGrow: 1,
-    padding: "5%",
+    padding: "2%",
     marginTop: theme.spacing(3)
   },
   table: {},
@@ -51,7 +48,7 @@ export default function Cropfactor() {
 
   return (
     <div>
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -66,7 +63,7 @@ export default function Cropfactor() {
                 <Typography variant="h6">Frame</Typography>
               </TableCell>
               <TableCell>
-                <FormControl style={{ width: "200px", marginRight: "10%" }}>
+                <FormControl style={{ width: "200px",/*  marginRight: "10%" */ }}>
                   <InputLabel htmlFor="select-calculate"></InputLabel>
                   <Select
                     value={state.frame}
@@ -114,7 +111,7 @@ export default function Cropfactor() {
             </Typography>
           </TableCell>
         </TableRow>
-      </Paper>
+      </div>
     </div>
   );
 }

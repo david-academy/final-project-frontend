@@ -15,7 +15,6 @@ class AuthProvider extends Component {
 
   logIn = (username, password) => {
     const userData = { username, password };
-    console.log(userData)
     return axios
       .post("https://skpback.herokuapp.com/login", userData)
       .then(res => {
@@ -69,10 +68,8 @@ class AuthProvider extends Component {
         }
       })
       .then(res => {
-        console.log(res.data)
         return res.data
       }).catch(err => {
-        console.log(err)
         throw new Error(err.response.data)
       })
   }

@@ -13,7 +13,7 @@ export default class Content extends Component {
 
     componentDidMount() {
         const token = localStorage.getItem("Token")
-        
+        this.setState({isLoading: true})
         axios
             .get("https://skpback.herokuapp.com/api/content/?page=0", {
                 headers: {
@@ -21,12 +21,10 @@ export default class Content extends Component {
                 }
             })
             .then(res => {
-                console.log(res)
                 this.setState({ content: res.data.content })
                 
-                console.log(this.state)
-            }).catch(err => {
-                console.log(err)
+            }).then(this.setState({ isLoading: false }))
+            .catch(err => {
                 throw new Error(err.response.data)
             })
             
@@ -37,12 +35,10 @@ export default class Content extends Component {
     }
 
     onScroll = () => {
-        if (
-            (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) && !this.state.isLoading &&
-            this.state.content.length
-        ) {
-            this.getPaginatedData();
-            
+        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500)
+            && !this.state.isLoading
+            && this.state.content.length) {
+            this.getPaginatedData();        
         }
     }
 
@@ -56,7 +52,6 @@ export default class Content extends Component {
                 }
             })
             .then(res => {
-                console.log(res.data)
                 this.setState({ content: this.state.content.concat(res.data.content), page: this.state.page + 1 })
                 if (res.data.last) {
                     window.removeEventListener('scroll', this.onScroll, false);
@@ -78,11 +73,12 @@ export default class Content extends Component {
 
     postMsg = (data) => {
         this.context.postData("content", data).then(res => {
-            console.log(res.data)
             this.setState({ showModal: false })
             
         }).then(this.getPaginatedData())
-        .catch(err => console.log(err.message))
+            .catch(err => {
+                throw new Error(err.message)
+            })
     }
 
     render() {
