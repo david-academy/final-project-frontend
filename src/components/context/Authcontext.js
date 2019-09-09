@@ -94,7 +94,6 @@ class AuthProvider extends Component {
         authorization: this.state.token
       }
     }).then(res => {
-      console.log(res.data);
       return res.data
     }).catch(err => {
       return err
@@ -118,7 +117,7 @@ class AuthProvider extends Component {
   };
 
   deleteReference = (id) => {
-        return axios.delete('http://skpback.herokuapp.com/api/images/' +id, {
+        return axios.delete('https://skpback.herokuapp.com/api/images/' +id, {
             headers: {
                 authorization: this.state.token
             }})
@@ -134,12 +133,10 @@ class AuthProvider extends Component {
       formData.append("image4", params.referencePictures[3]);
       formData.append("image5", params.referencePictures[4]);
 
-      console.log("Put request from authcontext: ", formData);
-
     return axios
       .put(
         "https://skpback.herokuapp.com/api/plans/" + id + "/pictures",
-        params,
+        formData,
         {
           headers: {
             authorization: this.state.token
@@ -163,9 +160,7 @@ class AuthProvider extends Component {
       formData.append("image4", params.readyPictures[3]);
       formData.append("image5", params.readyPictures[4]);
 
-      console.log("Put request from authcontext: ", formData);
-
-      return axios.put("http://skpback.herokuapp.com/api/plans/" + id + "/readypictures", formData, {
+      return axios.put("https://skpback.herokuapp.com/api/plans/" + id + "/readypictures", formData, {
           headers: {
               authorization: this.state.token
           }

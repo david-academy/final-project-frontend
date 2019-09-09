@@ -66,119 +66,175 @@ export default class SinglePlan extends Component {
         const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures, readyPictures} = this.state.plan;
 
         return (
-            <div>
-                <Box style={style.boxWrapper}>
+          <div>
+            <Box style={style.boxWrapper}>
+              <div>
+                {this.renderRedirect()}
+                <Button
+                  variant="outlined"
+                  size="small"
+                  style={style.buttonClose}
+                  onClick={this.setRedirect}
+                >
+                  X
+                </Button>
+              </div>
+              <div>
+                <Download
+                  id={id}
+                  date={date}
+                  header={header}
+                  description={description}
+                  participants={participants}
+                  location={location}
+                  notes={notes}
+                  latitude={latitude}
+                  longitude={longitude}
+                  referencePictures={referencePictures}
+                />
 
-                    <div>
-                        {this.renderRedirect()}
-                        <Button  variant="outlined" size="small" style={style.buttonClose} onClick={this.setRedirect}>X</Button>
-                    </div>
-                    <div>
+                <CardContent>
+                  <Card className="paper">
+                    <Typography variant="h4">
+                      <CardContent>{header}</CardContent>
+                      {
+                        <h6 variant="h6" style={style.textStyle}>
+                          {" "}
+                          Date & Time: {moment(date).format("LLLL")}
+                        </h6>
+                      }
+                    </Typography>
+                  </Card>
+                </CardContent>
 
-                        <Download id={id} date={date} header={header} description={description} participants={participants} location={location} notes={notes} latitude={latitude} longitude={longitude} referencePictures={referencePictures}/>
-
-
-                        <CardContent>
-                            <Card className="paper">
-                                <Typography variant="h4">
-                                    <CardContent>{header}</CardContent>
-                                    {<h6 variant="h6"  style={style.textStyle}> Date & Time: {moment(date).format('LLLL')}</h6>}
-                                </Typography>
-                            </Card>
-                        </CardContent>
-
-                        {readyPictures && <Container maxWidth="lg"style={this.muutos()}>
-                                <Paper className="root" style={style.sliderStyle}>
-                                    <AwesomeSlider cssModule={AwsSliderStyles} >
-                                        {readyPictures.map(picture => (
-                                            <div data-src={"https://skp-datastore.s3-eu-west-1.amazonaws.com/"+picture.url}/>))}
-                                        
-                                    </AwesomeSlider>
-                                </Paper>
-                            </Container>}
-                        <Grid>
-                            <Grid container style={style.rootStyle} spacing={2}>
-                                <Grid item xs>
-                                    <CardContent>
-                                        <Card className="paper" style={style.cardStyle}>
-                                            <Typography variant="h5">
-                                                <CardContent>Description</CardContent>
-                                                <Typography component="p" style={style.textStyle}>{description}</Typography>
-                                            </Typography>
-                                        </Card>
-                                    </CardContent>
-                                    <CardContent>
-                                        <Card className="paper" style={style.cardStyle}>
-                                            <Typography variant="h5">
-                                                <CardContent>Participants</CardContent>
-                                                <Typography component="p" style={style.textStyle}>{participants}</Typography>
-                                            </Typography>
-                                        </Card>
-                                    </CardContent>
-                                    <CardContent>
-                                        <Card className="paper" style={style.cardStyle}>
-                                            <Typography variant="h5">
-                                                <CardContent>Notes</CardContent>
-                                                <Typography component="p" style={style.textStyle}>{notes}</Typography>
-                                            </Typography>
-                                        </Card>
-                                    </CardContent>
-                                    <CardContent>
-                                        <Card className="paper" style={style.cardStyle}>
-                                            <Typography variant="h5">
-                                                <CardContent>Location</CardContent>
-                                                <Typography component="p" style={style.textStyle}>{location}</Typography>
-                                            </Typography>
-                                        </Card>
-                                    </CardContent>
-                                </Grid>
-                            </Grid>
-
-                    <CardContent>
-                        <Card>
-                        <div>
-                            <Button  style={style.buttonShow}  variant="outlined" size="small" onClick={this.toggleHidden.bind(this)}>{this.state.showButton}</Button>
-                            <p style={style.textStyle}>Photoshoots location on map</p>
-                        </div>
-                            {!this.state.isHidden &&
-                            <div  style={style.mapWrapper}>
-                                        <Map width={'65vw'} height={'50vh'} />
-                            </div>
+                {readyPictures && (
+                  <Container maxWidth="lg" style={this.muutos()}>
+                    <Paper className="root" style={style.sliderStyle}>
+                      <AwesomeSlider cssModule={AwsSliderStyles}>
+                        {readyPictures.map(picture => (
+                          <div
+                            data-src={
+                              "https://skp-datastore.s3-eu-west-1.amazonaws.com/" +
+                              picture.url
                             }
-                        </Card>
-
-                    </CardContent>
-                </Grid>
-                    </div>
-
-
-                    {referencePictures && <Grid container spacing={3} style={style.gridPic}>
-                        {referencePictures.map(pic => (
-                            <Grid item xs={12} sm={6}>
-                            <Card>
-                                <CardActionArea>
-                                    <CardMedia
-                                        component="img"
-                                        alt="Your reference picture"
-                                        height="150"
-                                        image={"/"+ pic.url}
-                                        title="Your reference picture"
-                                    />
-                                </CardActionArea>
-                            </Card>
-                            </Grid>
+                          />
                         ))}
+                      </AwesomeSlider>
+                    </Paper>
+                  </Container>
+                )}
+                <Grid>
+                  <Grid container style={style.rootStyle} spacing={2}>
+                    <Grid item xs>
+                      <CardContent>
+                        <Card className="paper" style={style.cardStyle}>
+                          <Typography variant="h5">
+                            <CardContent>Description</CardContent>
+                            <Typography component="p" style={style.textStyle}>
+                              {description}
+                            </Typography>
+                          </Typography>
+                        </Card>
+                      </CardContent>
+                      <CardContent>
+                        <Card className="paper" style={style.cardStyle}>
+                          <Typography variant="h5">
+                            <CardContent>Participants</CardContent>
+                            <Typography component="p" style={style.textStyle}>
+                              {participants}
+                            </Typography>
+                          </Typography>
+                        </Card>
+                      </CardContent>
+                      <CardContent>
+                        <Card className="paper" style={style.cardStyle}>
+                          <Typography variant="h5">
+                            <CardContent>Notes</CardContent>
+                            <Typography component="p" style={style.textStyle}>
+                              {notes}
+                            </Typography>
+                          </Typography>
+                        </Card>
+                      </CardContent>
+                      <CardContent>
+                        <Card className="paper" style={style.cardStyle}>
+                          <Typography variant="h5">
+                            <CardContent>Location</CardContent>
+                            <Typography component="p" style={style.textStyle}>
+                              {location}
+                            </Typography>
+                          </Typography>
+                        </Card>
+                      </CardContent>
                     </Grid>
-                    }
+                  </Grid>
 
-                    <Link to={{pathname:'/plans/'+ this.state.plan.id + '/edit', state: this.state}}>
-                        <Button size="small" color="default" variant="outlined" style={style.button}>
-                            Modify
+                  <CardContent>
+                    <Card>
+                      <div>
+                        <Button
+                          style={style.buttonShow}
+                          variant="outlined"
+                          size="small"
+                          onClick={this.toggleHidden.bind(this)}
+                        >
+                          {this.state.showButton}
                         </Button>
-                    </Link>
-                </Box>
-        </div>
-        )
+                        <p style={style.textStyle}>
+                          Photoshoots location on map
+                        </p>
+                      </div>
+                      {!this.state.isHidden && (
+                        <div style={style.mapWrapper}>
+                          <Map width={"65vw"} height={"50vh"} />
+                        </div>
+                      )}
+                    </Card>
+                  </CardContent>
+                </Grid>
+              </div>
+
+              {referencePictures && (
+                <Grid container spacing={3} style={style.gridPic}>
+                  {referencePictures.map(pic => (
+                    <Grid item xs={12} sm={6}>
+                      <Card>
+                        <CardActionArea>
+                          <CardMedia
+                            component="img"
+                            alt="Your reference picture"
+                            height="150"
+                            image={
+                              "https://skp-datastore.s3-eu-west-1.amazonaws.com/" +
+                              pic.url
+                            }
+                            title="Your reference picture"
+                          />
+                        </CardActionArea>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
+
+              <Link
+                to={{
+                  pathname: "/plans/" + this.state.plan.id + "/edit",
+                  state: this.state
+                }}
+              >
+                <Button
+                  size="small"
+                  color="default"
+                  variant="outlined"
+                  style={style.button}
+                >
+                  Modify
+                </Button>
+              </Link>
+            </Box>
+          </div>
+        );
     }
 }
 
