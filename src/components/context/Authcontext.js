@@ -117,8 +117,55 @@ class AuthProvider extends Component {
       }})
   };
 
+  deleteReference = (id) => {
+        return axios.delete('http://skpback.herokuapp.com/api/images/' +id, {
+            headers: {
+                authorization: this.state.token
+            }})
+  };
+
+
   addReferencepictures = (id, params) => {
-    return axios.put("https://skpback.herokuapp.com/api/plans/" + id + "/pictures", params, {
+    
+      let formData = new FormData();
+      formData.append("image1", params.referencePictures[0]);
+      formData.append("image2", params.referencePictures[1]);
+      formData.append("image3", params.referencePictures[2]);
+      formData.append("image4", params.referencePictures[3]);
+      formData.append("image5", params.referencePictures[4]);
+
+      console.log("Put request from authcontext: ", formData);
+
+    return axios
+      .put(
+        "https://skpback.herokuapp.com/api/plans/" + id + "/pictures",
+        params,
+        {
+          headers: {
+            authorization: this.state.token
+          }
+        }
+      )
+      .then(res => {
+        console.log(res.data);
+        return res.data;
+      })
+      .catch(err => {
+        return err;
+      });
+  };
+
+  addReadyPictures = (id, params) => {
+      let formData = new FormData();
+      formData.append("image1", params.readyPictures[0]);
+      formData.append("image2", params.readyPictures[1]);
+      formData.append("image3", params.readyPictures[2]);
+      formData.append("image4", params.readyPictures[3]);
+      formData.append("image5", params.readyPictures[4]);
+
+      console.log("Put request from authcontext: ", formData);
+
+      return axios.put("http://skpback.herokuapp.com/api/plans/" + id + "/readypictures", formData, {
           headers: {
               authorization: this.state.token
           }
@@ -128,7 +175,7 @@ class AuthProvider extends Component {
       }).catch(err => {
           return err
       })
-  };
+    };
 
 
 
@@ -146,6 +193,8 @@ class AuthProvider extends Component {
           updateData: this.updateData,
           deletePlan: this.deletePlan,
             addReferencePictures: this.addReferencepictures,
+            addReadyPictures: this.addReadyPictures,
+            deleteReference: this.deleteReference,
           AuthContext
         }}
       >

@@ -29,6 +29,7 @@ export default class SinglePlan extends Component {
         isHidden: true,
         showButton: 'Show',
         redirect: false,
+        // referencePictures: '',
     };
 
 
@@ -41,10 +42,10 @@ export default class SinglePlan extends Component {
     };
 
     /*Redirecting back to the /plan site*/
-    setRedirect = () => {this.setState({redirect: true})}
+    setRedirect = () => {this.setState({redirect: true})};
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to='/plans' />
+            return <Redirect to='/plan' />
         }
     };
 
@@ -58,17 +59,11 @@ export default class SinglePlan extends Component {
 
     muutos = () =>{
         return {
-
-            display: this.state.plan.referencePictures && this.state.plan.referencePictures.length ===0? 'none':'visible'}}
+            display: this.state.plan.readyPictures && this.state.plan.readyPictures.length ===0? 'none':'visible'}}
 
     render() {
 
         const {id, date, description, header, location, notes, participants, latitude, longitude, referencePictures, readyPictures} = this.state.plan;
-
-        console.log(this.state);
-        console.log("header: " + header);
-        console.log("this.state.data renderissa SinglePlan: ", this.state.data);
-        console.log(this.state)
 
         return (
             <div>
@@ -92,11 +87,12 @@ export default class SinglePlan extends Component {
                             </Card>
                         </CardContent>
 
-                        {referencePictures && <Container maxWidth="lg"style={this.muutos()}>
+                        {readyPictures && <Container maxWidth="lg"style={this.muutos()}>
                                 <Paper className="root" style={style.sliderStyle}>
                                     <AwesomeSlider cssModule={AwsSliderStyles} >
-                                        {referencePictures.map(picture => (
+                                        {readyPictures.map(picture => (
                                             <div data-src={"https://skp-datastore.s3-eu-west-1.amazonaws.com/"+picture.url}/>))}
+                                        
                                     </AwesomeSlider>
                                 </Paper>
                             </Container>}
@@ -153,9 +149,28 @@ export default class SinglePlan extends Component {
 
                     </CardContent>
                 </Grid>
-
-
                     </div>
+
+
+                    {referencePictures && <Grid container spacing={3} style={style.gridPic}>
+                        {referencePictures.map(pic => (
+                            <Grid item xs={12} sm={6}>
+                            <Card>
+                                <CardActionArea>
+                                    <CardMedia
+                                        component="img"
+                                        alt="Your reference picture"
+                                        height="150"
+                                        image={"/"+ pic.url}
+                                        title="Your reference picture"
+                                    />
+                                </CardActionArea>
+                            </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
+                    }
+
                     <Link to={{pathname:'/plans/'+ this.state.plan.id + '/edit', state: this.state}}>
                         <Button size="small" color="default" variant="outlined" style={style.button}>
                             Modify
@@ -177,7 +192,9 @@ const style = {
         justify: 'center',
         alignItems: 'center',
         margin: '0 auto',
-        paddingTop: '5%',
+        paddingRight: '5%',
+        paddingTop:'5%',
+        paddingBottom: '5%',
         borderRadius: 'borderRadius',
 },
     rootStyle: {
@@ -246,7 +263,15 @@ const style = {
         backgroundColor: 'ghostwhite',
         marginLeft:'auto',
         border: "1px solid #4a4a4a",
-    }
+    },
+    buttonPic: {
+        display: 'flex',
+        padding: 3,
+        margin: 5,
+        backgroundColor: 'ghostwhite',
+        marginLeft:'auto',
+        border: "1px solid #4a4a4a",
+    },
 
 };
     SinglePlan.contextType = AuthContext;

@@ -63,7 +63,7 @@ const ImageDrop = withStyles(theme => ({
 export default function AddReadyPics(props) {
 
     const [values, setValues] = React.useState({
-        referencePictures: [],
+        readyPictures: props.readyPictures,
     });
 
     const exportData = useContext(AuthContext);
@@ -77,23 +77,22 @@ export default function AddReadyPics(props) {
         setOpen(false);
     };
     const handleChange =  event => {
-        setValues({...values, referencePictures: [...values.referencePictures, event.target.files[0]]});
-        console.log(values.referencePictures)
+        setValues({...values, readyPictures: [...values.readyPictures, event.target.files[0]]});
+        console.log(values.readyPictures)
     };
 
     const sendPics = (event) => {
         event.preventDefault();
-        console.log("AddReferencePics, plan id and values : ",props.planid, values);
-        exportData.addReferencePictures(props.planid, values);
-        props.update();
-        console.log("AddReferencePics, calling updatePage function from EditPreviousPlan + props: ", props)
+        console.log("AddReadyPics, plan id and values : ",props.planid, values);
+        exportData.addReadyPictures(props.planid, values);
+        // props.update();
         handleClose();
     };
 
     return (
         <div>
             <Button variant="outlined"  color="default"  onClick={handleClickOpen}>
-                Add reference pictures
+                Add your photos
             </Button>
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
@@ -105,10 +104,10 @@ export default function AddReadyPics(props) {
                     </Typography>
                 </DialogContent>
                 <div
-                    value={values.referencePictures}
-                    onChange={handleChange}
+                value={values.readyPictures}
+                onChange={handleChange}
                 >
-                    <ImageDropZone style={ImageDrop.imagedrop}/>
+                <ImageDropZone style={ImageDrop.imagedrop}/>
                 </div>
 
 

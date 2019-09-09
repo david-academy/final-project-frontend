@@ -2,9 +2,6 @@ import React, {Component} from 'react'
 import {DropzoneArea} from 'material-ui-dropzone'
 import Button from "@material-ui/core/Button";
 import {DropzoneDialog} from 'material-ui-dropzone'
-/*
-https://www.npmjs.com/package/material-ui-dropzone
-*/
 
 
 

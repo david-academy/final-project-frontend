@@ -12,41 +12,47 @@ import Map from '../map/Map';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers/index";
 import DateFnsUtils from '@date-io/date-fns/build/index';
 
-/*
-https://react-pdf.org/advanced
-https://material-ui-pickers.dev/api/DateTimePicker
-*/
 
-/*Määritellään tyylit lomakkeen eri osille*/
+/*Styles for forms different parts*/
 const useStyles = makeStyles(theme => ({
     container: {
-        alignItems: 'center',
-        display: 'flex',
-        flexWrap: 'wrap',
         direction: 'row',
         justify: 'center',
-        margin: 'normal',
+        marginLeft: '20',
     },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         width: '85%',
     },
+    buttonArea: {
+        display: 'flex',
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+        float: 'right',
+        marginRight: '20px',
+
+    },
     button: {
         marginBottom: theme.spacing(2),
         marginTop: theme.spacing(5),
-        marginLeft: theme.spacing(1),
-        padding: 7,
+        padding: 6,
+        backgroundColor: 'ghostwhite',
+         marginLeft:'auto',
+        marginRight:5,
     },
     buttonClose: {
         marginTop: theme.spacing(1),
         marginRight: theme.spacing(1),
         padding: 3,
+        backgroundColor: 'ghostwhite',
     },
     menu: {
         width: 300,
         alignItems: 'left',
         marginLeft: theme.spacing(2),
+        marginTop: theme.spacing(7),
+        marginBottom: theme.spacing(7),
     },
     calendar: {
         marginLeft: theme.spacing(1),
@@ -73,13 +79,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-/*borderit formia varten, joka on wrapattu Box elementtiin*/
+/*borders for the form which is wrapped in a box element*/
 const boxWrapper = {
     bgcolor: 'background.paper',
     borderColor: 'text.primary',
     m: 1,
     border: 1,
     width: '75%',
+    paddingBottom:'120px',
 };
 
 const mapWrapper= {
@@ -94,9 +101,7 @@ const mapWrapper= {
 export default function OutlinedTextFields(props) {
 
     const classes = useStyles();
-    /*asetetaan vastaanottavat parametrit, jotka käyttäjä täyttää
-    * päivämäärä käsitellään muodossa: 2019-09-02T06:30:00
-    */
+
      const [values, setValues] = React.useState({
          header:'',
          date: new Date,
@@ -110,7 +115,7 @@ export default function OutlinedTextFields(props) {
          referencephotos:[],
      });
 
-    const onChange = date => setValues({...values, date })
+    const onChange = date => setValues({...values, date });
 
     const handleChange = header => event => {
         setValues({ ...values, [header]: event.target.value});
@@ -121,13 +126,13 @@ export default function OutlinedTextFields(props) {
     };
     const handleCoordinates = header => event => {
         setValues({...values, longitude: event.target.longitude, latitude: event.target.latitude, coordinates: event.target});
-    }
+    };
 
 
     /* sendData sends a POST request to database and cleares + closes the modal*/
     const sendData = (event) => {
         event.preventDefault();
-        console.log(values)
+        console.log(values);
         addNew(values);
         clearData();
     };
@@ -141,8 +146,8 @@ export default function OutlinedTextFields(props) {
         <div>
 
         <Box borderRadius="borderRadius" {...boxWrapper}>
-            <div className={classes.buttonClose} style={{display: "flex"}} >
-                <Button  variant="outlined" size="small" style={{marginLeft:"auto"}} onClick={clearData}>X</Button>
+            <div className={classes.buttonArea} style={{display: "flex"}} >
+                <Button className={classes.buttonClose}  variant="outlined" size="small" style={{marginLeft:"auto"}} onClick={clearData}>X</Button>
             </div>
             <div className={classes.menu}>
                 <h3>Make a new plan!</h3>
@@ -245,18 +250,19 @@ export default function OutlinedTextFields(props) {
                     <p>You can upload max. 5 reference pictures in your plan</p>
                     <ImageDropZone/>
                 </div>
-        </form>
 
-            <div className={classes.button} style={{display: "flex"}}>
-            <Button variant="outlined" size="small" className={classes.button} style={{marginLeft:"auto"}}  onClick={clearData}>
-                Delete
-                <DeleteIcon className={classes.rightIcon} />
-            </Button>
-            <Button variant="outlined" size="small" className={classes.button} style={{marginLeft:"auto"}} onClick={sendData}>
-                Save
-                <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
-            </Button>
+        </form>
+            <div  className={classes.buttonArea}>
+                <Button variant="outlined" size="small" className={classes.button}  onClick={clearData}>
+                    Delete
+                    <DeleteIcon className={classes.rightIcon} />
+                </Button>
+                <Button variant="outlined" size="small" className={classes.button} onClick={sendData}>
+                    Save
+                    <SaveIcon className={clsx(classes.rightIcon, classes.iconSmall)} />
+                </Button>
             </div>
+
         </Box>
         </div>
     );

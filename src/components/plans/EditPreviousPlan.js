@@ -11,6 +11,13 @@ import DateFnsUtils from "@date-io/date-fns";
 
 const plans = [];
 
+
+/*
+* Älä käytä tätä
+* tämä on vanha versio
+*
+* */
+
 class EditPreviousPlan extends Component {
 /*Propsit tuodaan luokasta .singlePlan/PlanData */
     state= {
@@ -33,7 +40,7 @@ class EditPreviousPlan extends Component {
         if (this.state.redirect) {
             return <Redirect to='/plan' />
         }
-    }
+    };
 
     AuthContext = this.context;
 
@@ -202,13 +209,6 @@ class EditPreviousPlan extends Component {
     }
 }
 
-/*
-*                 <div style={styling.buttonClose} >
-                    {this.renderRedirect()}
-                    <Button  variant="outlined" size="small" style={{marginLeft:"auto"}} onClick={this.setRedirect}>X</Button>
-                </div>
-* */
-
 const styling = {
     container: {
         alignItems: 'center',
@@ -266,16 +266,3 @@ const mapWrapper= {
 
 EditPreviousPlan.contextType = AuthContext;
 export default EditPreviousPlan;
-
-
-/*
-                    <div
-                        style={styling.imagedrop}
-                        value={this.state.referencePictures}
-                        onChange={this.referencePicChange}>
-
-                        <h6>You can upload max. 5 reference pictures in your plan.
-                        </h6>
-                        <ImageDropZone/>
-                    </div>
-*/
