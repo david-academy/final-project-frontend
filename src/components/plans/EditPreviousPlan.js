@@ -40,7 +40,7 @@ class EditPreviousPlan extends Component {
         if (this.state.redirect) {
             return <Redirect to='/plan' />
         }
-    }
+    };
 
     AuthContext = this.context;
 

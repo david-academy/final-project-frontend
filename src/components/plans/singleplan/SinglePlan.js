@@ -168,10 +168,6 @@ export default class SinglePlan extends Component {
                                         image={"/"+ pic.url}
                                         title="Your reference picture"
                                     />
-                                    <Button size="small" color="default" variant="outlined" style={style.buttonPic}>
-                                        Show
-                                    </Button>
-
                                 </CardActionArea>
                             </Card>
                             </Grid>

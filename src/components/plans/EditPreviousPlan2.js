@@ -43,7 +43,7 @@ class EditPreviousPlan2 extends Component {
         suninfo: this.props.location.state.plan.suninfo,
         newReferencePictures: [],
         newReadyPictures: [],
-        isReady: true,
+        // isReady: true,
     };
 
     setRedirect = () => {
@@ -80,6 +80,13 @@ class EditPreviousPlan2 extends Component {
         console.log('editPlan', this.props.location.state.plan);
     };
 
+    deleteRefePic = (event) => {
+        event.preventDefault();
+        const id = event.target.getAttribute("id");
+        this.context.deleteReference(id);
+        console.log("trying to del refPic with id: ", event)
+    };
+
     updatePage = () => {
         /*hack here updates*/
         console.log("updatePage function in action, trying force update");
@@ -89,13 +96,6 @@ class EditPreviousPlan2 extends Component {
     hide = () => {
         return {
             display: this.state.readyPictures && this.state.readyPictures.length ===0? 'none':'visible'}
-    };
-
-    areReadyPicsReady = () => {
-        this.setState ({
-            isReady : !this.state.isReady,
-            return: this.state.readyPictures
-        })
     };
 
     render() {
@@ -166,9 +166,7 @@ class EditPreviousPlan2 extends Component {
                                     <Grid item xs={12} sm={6}>
                                         <Card>
                                             <CardActionArea>
-                                                <Button size="small" variant="outlined"  style={styling.buttonPic}>
-                                                    Delete
-                                                </Button>
+
                                                 <CardMedia
                                                     component="img"
                                                     alt="Your reference picture"
@@ -176,12 +174,7 @@ class EditPreviousPlan2 extends Component {
                                                     image={"/"+ pic.url}
                                                     title="Your reference picture"
                                                 />
-                                                <div style={styling.buttonArea}>
 
-                                                <Button size="small" color="default" variant="outlined" style={styling.buttonPic}>
-                                                    Show
-                                                </Button>
-                                                </div>
                                             </CardActionArea>
                                         </Card>
                                     </Grid>
@@ -277,7 +270,7 @@ class EditPreviousPlan2 extends Component {
                                     label="Sunrise | Sunset | Golden hours"
                                     style={styling.TextFieldWide}
                                     placeholder="Sunrise | Sunset | Golden hours"
-                                    value="this.state.suninfo"
+                                    value="Sunrise | Sunset | Golden hours"
                                     margin="normal"
                                     variant="outlined"
                                     float="center"
@@ -307,9 +300,7 @@ class EditPreviousPlan2 extends Component {
                                                 <Grid item xs={12} sm={6}>
                                                     <Card>
                                                         <CardActionArea>
-                                                            <Button size="small" variant="outlined"  style={styling.buttonPic}>
-                                                                Delete
-                                                            </Button>
+
                                                             <CardMedia
                                                                 component="img"
                                                                 alt="Your picture"
@@ -319,9 +310,6 @@ class EditPreviousPlan2 extends Component {
                                                             />
                                                             <div style={styling.buttonArea}>
 
-                                                                <Button size="small" color="default" variant="outlined" style={styling.buttonPic}>
-                                                                    Show
-                                                                </Button>
                                                             </div>
                                                         </CardActionArea>
                                                     </Card>
@@ -358,7 +346,7 @@ const styling = {
     root: {
         flexGrow: 1,
         padding: '5%',
-        backgroundColor: 'yellow',
+        // backgroundColor: 'yellow',
         paddingBottom:80,
     },
     boxWrapper: {
@@ -373,7 +361,7 @@ const styling = {
         paddingBottom: 20,
     },
     mapWrapper: {
-        backgroundColor: 'lightblue',
+        // backgroundColor: 'lightblue',
         padding: '3%',
         borderRadius: 5,
     },
@@ -440,3 +428,13 @@ const styling = {
 EditPreviousPlan2.contextType = AuthContext;
 export default EditPreviousPlan2;
 
+
+/*
+*Button for deleting readyPictures
+* <Button size="small" variant="outlined"  style={styling.buttonPic}>Delete</Button>
+*
+*Button for deletinf referenceictures
+*<div style={styling.buttonArea}>
+*<Button key={pic.id} id={pic.id} size="small" variant="outlined"  style={styling.buttonPic} onClick={this.deleteRefePic}>Delete</Button>
+*</div>
+*/

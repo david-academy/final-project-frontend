@@ -120,6 +120,14 @@ class AuthProvider extends Component {
       }})
   };
 
+  deleteReference = (id) => {
+        return axios.delete('http://localhost:8080/api/images/' +id, {
+            headers: {
+                authorization: this.state.token
+            }})
+  };
+
+
   addReferencepictures = (id, params) => {
       let formData = new FormData();
       formData.append("image1", params.referencePictures[0]);
@@ -181,6 +189,7 @@ class AuthProvider extends Component {
           deletePlan: this.deletePlan,
             addReferencePictures: this.addReferencepictures,
             addReadyPictures: this.addReadyPictures,
+            deleteReference: this.deleteReference,
           AuthContext
         }}
       >
