@@ -7,24 +7,12 @@ import MapGL, {
     Popup,
     NavigationControl
 } from "react-map-gl";
-import DeckGL from '@deck.gl/react';
-import { LineLayer } from '@deck.gl/layers';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import Geocoder from 'react-map-gl-geocoder' 
 import 'mapbox-gl/dist/mapbox-gl.css'
-import Pin from './pin'
 import { AuthContext } from '../context/Authcontext'
 import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
-
-
-
-const navStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    padding: '10px'
-};
 
 export default class MapClass extends Component {
     constructor(props) {
@@ -116,21 +104,6 @@ export default class MapClass extends Component {
     render() {
         
         const { viewport } = this.state;
-
-        /* render photoshoot locations from state */
-        /* const locationMarkers = this.state.locations.map(loc => {
-            return <Marker key={loc.id}
-                mapRef={this.mapRef}
-                latitude={60}
-                longitude={25}>
-                <CameraAlt mapRef={this.mapRef} onClick={(e) => {
-                    e.preventDefault();
-                    this.setState({ selectedLocation: loc })
-                }} />
-                
-            </Marker>
-        }) */
-
         
         return (
             <div>
@@ -239,12 +212,6 @@ export default class MapClass extends Component {
     }
 }
 
-//geolocation button position
-const geolocateStyle = {
-    float: 'left',
-    margin: '50px',
-    padding: '10px'
-};
 //navigation buttons position
 const navistyle = {
     float: 'right',

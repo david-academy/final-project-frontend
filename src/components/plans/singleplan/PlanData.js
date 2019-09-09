@@ -34,8 +34,8 @@ class PlanData extends Component {
                                         component="img"
                                         alt="Coverphoto"
                                         height="140"
-                                        image={plan.referencePictures.length ? plan.referencePictures[0].url : "/liskodisko.jpg"}
-                                        title="Contemplative Reptile"
+                                        image={plan.referencePictures.length ? "https://skp-datastore.s3-eu-west-1.amazonaws.com/"+plan.referencePictures[0].url : "/liskodisko.jpg"}
+                                        title={plan.header}
 
                                     />
 

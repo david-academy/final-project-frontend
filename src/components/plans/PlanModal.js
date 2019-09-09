@@ -52,7 +52,7 @@ export default function PlanModal(){
     };
     const handleClose = () => {
         setOpen(false)
-        return <Redirect to='/plasdan' />
+        return <Redirect to='/plan' />
     };
 
     return (

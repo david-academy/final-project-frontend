@@ -10,4 +10,6 @@ npm install
 npm start
 ```
 
+Deployed: http://skp-suomenkuvapalvelu.s3-website-eu-west-1.amazonaws.com/
+
 Backend link:

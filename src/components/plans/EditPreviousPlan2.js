@@ -101,243 +101,266 @@ class EditPreviousPlan2 extends Component {
     render() {
 
         return (
+          <div style={styling.root}>
+            <Box borderRadius="borderRadius" style={styling.boxWrapper}>
+              <div style={styling.buttonArea}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  style={styling.buttonClose}
+                  onClick={this.setRedirect}
+                >
+                  X
+                </Button>
+              </div>
+              <div style={styling.menu}>
+                <h3>Edit your plan details</h3>
+              </div>
 
-            <div style={styling.root}>
-                <Box borderRadius="borderRadius" style={styling.boxWrapper}>
-
-                    <div style={styling.buttonArea}>
-                        <Button variant="outlined" size="small" style={styling.buttonClose} onClick={this.setRedirect}>X</Button>
-                    </div>
-                    <div style={styling.menu}>
-                        <h3>Edit your plan details</h3>
-                    </div>
-
-                    <form style={styling.container} noValidate autoComplete="off">
-
-
-                        <Grid container spacing={3}>
-
-                            <Grid item xs={12}>
-                                <TextField
-                                    id="outlined-name"
-                                    label="Photoshoot name"
-                                    style={styling.TextFieldWide}
-                                    placeholder={this.props.header}
-                                    value={this.state.header}
-                                    onChange={this.headerChange}
-                                    margin="normal"
-                                    variant="outlined"
-                                    float="center"
-                                />
-                            </Grid>
-                            <Grid container spacing={3}>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        id="outlined-multiline-static"
-                                        label="Description"
-                                        placeholder={this.props.description}
-                                        value={this.state.description}
-                                        onChange={this.descriptionChange}
-                                        style={styling.TextFieldNarrow}
-                                        multiline
-                                        margin="normal"
-                                        variant="outlined"
-                                        rows="2"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        id="outlined-multiline-static"
-                                        label="Participants"
-                                        placeholder={this.props.participants}
-                                        value={this.state.participants}
-                                        onChange={this.participantsChange}
-                                        multiline
-                                        style={styling.TextFieldNarrow}
-                                        margin="normal"
-                                        variant="outlined"
-                                        rows="2"
-                                    />
-                                </Grid>
-                             </Grid>
-                            <h5>Reference pictures:</h5>
-                            {this.state.referencePictures && <Grid container spacing={3} style={styling.gridPic}>
-                                {this.state.referencePictures.map(pic => (
-                                    <Grid item xs={12} sm={6}>
-                                        <Card>
-                                            <CardActionArea>
-
-                                                <CardMedia
-                                                    component="img"
-                                                    alt="Your reference picture"
-                                                    height="150"
-                                                    image={"/"+ pic.url}
-                                                    title="Your reference picture"
-                                                />
-
-                                            </CardActionArea>
-                                        </Card>
-                                    </Grid>
-                                ))}
-                            </Grid>
-                            }
-
-                            <Grid items xs={12}>
-                                <div
-                                    style={styling.imagedrop}
-                                    value={this.state.newReferencePictures}
-                                    onChange={this.newReferencePicChange}
-                                >
-                                    <p>Add more reference pictures! You can have max. 5 per plan.</p>
-
-                                    <AddReferencePictures planid={this.state.id} update={this.updatePage}/>
-
-                                </div>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <TextField
-                                    id="outlined-notes"
-                                    label="Notes"
-                                    placeholder={this.props.notes}
-                                    value={this.state.notes}
-                                    onChange={this.notesChange}
-                                    multiline
-                                    style={styling.TextFieldWide}
-                                    margin="normal"
-                                    variant="outlined"
-                                    float="center"
-                                    rows="10"
-                                />
-                            </Grid>
-
-                            <Grid container spacing={3}>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        id="outlined-multiline-static"
-                                        label="Photoshoot location"
-                                        placeholder={this.props.location}
-                                        value={this.state.location}
-                                        onChange={this.locationChange}
-                                        style={styling.TextFieldNarrow}
-                                        multiline
-                                        margin="normal"
-                                        variant="outlined"
-                                    />
-                                </Grid>
-
-
-                                <Grid item xs={12} sm={6}>
-                                        <div
-                                            style={styling.calendar}
-                                            placeholder={this.props.date}
-                                            value={this.state.date}
-                                             onChange={this.dateChange}
-                                        >
-                                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                <DateTimePicker
-                                                    ampm={false}
-                                                    inputVariant="outlined"
-                                                    value={this.state.date}
-                                                    onChange={this.dateChange}
-                                                    label="Select Date and Time"
-                                                    showTodayButton
-                                                    margin="normal"
-                                                />
-                                            </MuiPickersUtilsProvider>
-                                        </div>
-                                </Grid>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <h6>You can also pinpoint your planned location on map
-                                    <br></br>
-                                </h6>
-                                <p>By changing the date shown on map, the suns location will change.</p>
-
-                                <div style={styling.mapWrapper}>
-
-                                    <Map width={'65vw'} height={'50vh'}
-                                         value="this.state.coordinates"
-                                         onChange={this.coordinatesChange}
-                                         handleCoordinates={this.coordinatesChange}
-                                    />
-                                </div>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    id="outlined-name"
-                                    label="Sunrise | Sunset | Golden hours"
-                                    style={styling.TextFieldWide}
-                                    placeholder="Sunrise | Sunset | Golden hours"
-                                    value="Sunrise | Sunset | Golden hours"
-                                    margin="normal"
-                                    variant="outlined"
-                                    float="center"
-                                />
-                            </Grid>
-
-                            <Grid items xs={12}>
-                                <div
-                                    style={styling.imagedrop}
-                                    value={this.state.newReadyPictures}
-                                    onChange={this.newReadyPicturesChange}
-                                    >
-                                    <p>Took some neat photos at your photoshoot? Add them afterwards here!
-                                        <br></br> You can add up to 5 pictures per plan.</p>
-
-                                    <AddReadyPics readyPictures={this.state.newReadyPictures} planid={this.state.id} update={this.updatePage}/>
-                                    <div>
-
-
-                                        <div style={this.hide()}>
-                                            <p style={styling.paragraph}>Previously added photos:</p>
-                                            <Grid  container spacing={3} style={styling.gridPic}>
-
-
-                                            {this.state.readyPictures.map(pic => (
-
-                                                <Grid item xs={12} sm={6}>
-                                                    <Card>
-                                                        <CardActionArea>
-
-                                                            <CardMedia
-                                                                component="img"
-                                                                alt="Your picture"
-                                                                height="150"
-                                                                image={"/"+ pic.url}
-                                                                title="Your picture"
-                                                            />
-                                                            <div style={styling.buttonArea}>
-
-                                                            </div>
-                                                        </CardActionArea>
-                                                    </Card>
-                                                </Grid>
-                                            ))}
-                                            </Grid>
-                                        </div>
-
-
-
-                                    </div>
-                                </div>
-                            </Grid>
+              <form style={styling.container} noValidate autoComplete="off">
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <TextField
+                      id="outlined-name"
+                      label="Photoshoot name"
+                      style={styling.TextFieldWide}
+                      placeholder={this.props.header}
+                      value={this.state.header}
+                      onChange={this.headerChange}
+                      margin="normal"
+                      variant="outlined"
+                      float="center"
+                    />
+                  </Grid>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        id="outlined-multiline-static"
+                        label="Description"
+                        placeholder={this.props.description}
+                        value={this.state.description}
+                        onChange={this.descriptionChange}
+                        style={styling.TextFieldNarrow}
+                        multiline
+                        margin="normal"
+                        variant="outlined"
+                        rows="2"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        id="outlined-multiline-static"
+                        label="Participants"
+                        placeholder={this.props.participants}
+                        value={this.state.participants}
+                        onChange={this.participantsChange}
+                        multiline
+                        style={styling.TextFieldNarrow}
+                        margin="normal"
+                        variant="outlined"
+                        rows="2"
+                      />
+                    </Grid>
+                  </Grid>
+                  <h5>Reference pictures:</h5>
+                  {this.state.referencePictures && (
+                    <Grid container spacing={3} style={styling.gridPic}>
+                      {this.state.referencePictures.map(pic => (
+                        <Grid item xs={12} sm={6}>
+                          <Card>
+                            <CardActionArea>
+                              <CardMedia
+                                component="img"
+                                alt="Your reference picture"
+                                height="150"
+                                image={
+                                  "https://skp-datastore.s3-eu-west-1.amazonaws.com/" +
+                                  pic.url
+                                }
+                                title="Your reference picture"
+                              />
+                            </CardActionArea>
+                          </Card>
                         </Grid>
-                        <div style={styling.buttonAreaBottom}>
-                            <Button style={styling.button} size="small" color="default" variant="outlined" onClick={this.deleteThisPlan}>
-                                Delete
-                            </Button>
-                            <Button  style={styling.button} size="small" color="default" variant="outlined" onClick={this.editPlan}>
-                                Save
-                            </Button>
+                      ))}
+                    </Grid>
+                  )}
+
+                  <Grid items xs={12}>
+                    <div
+                      style={styling.imagedrop}
+                      value={this.state.newReferencePictures}
+                      onChange={this.newReferencePicChange}
+                    >
+                      <p>
+                        Add more reference pictures! You can have max. 5 per
+                        plan.
+                      </p>
+
+                      <AddReferencePictures
+                        planid={this.state.id}
+                        update={this.updatePage}
+                      />
+                    </div>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <TextField
+                      id="outlined-notes"
+                      label="Notes"
+                      placeholder={this.props.notes}
+                      value={this.state.notes}
+                      onChange={this.notesChange}
+                      multiline
+                      style={styling.TextFieldWide}
+                      margin="normal"
+                      variant="outlined"
+                      float="center"
+                      rows="10"
+                    />
+                  </Grid>
+
+                  <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        id="outlined-multiline-static"
+                        label="Photoshoot location"
+                        placeholder={this.props.location}
+                        value={this.state.location}
+                        onChange={this.locationChange}
+                        style={styling.TextFieldNarrow}
+                        multiline
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                      <div
+                        style={styling.calendar}
+                        placeholder={this.props.date}
+                        value={this.state.date}
+                        onChange={this.dateChange}
+                      >
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                          <DateTimePicker
+                            ampm={false}
+                            inputVariant="outlined"
+                            value={this.state.date}
+                            onChange={this.dateChange}
+                            label="Select Date and Time"
+                            showTodayButton
+                            margin="normal"
+                          />
+                        </MuiPickersUtilsProvider>
+                      </div>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <h6>
+                      You can also pinpoint your planned location on map
+                      <br></br>
+                    </h6>
+                    <p>
+                      By changing the date shown on map, the suns location will
+                      change.
+                    </p>
+
+                    <div style={styling.mapWrapper}>
+                      <Map
+                        width={"65vw"}
+                        height={"50vh"}
+                        value="this.state.coordinates"
+                        onChange={this.coordinatesChange}
+                        handleCoordinates={this.coordinatesChange}
+                      />
+                    </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      id="outlined-name"
+                      label="Sunrise | Sunset | Golden hours"
+                      style={styling.TextFieldWide}
+                      placeholder="Sunrise | Sunset | Golden hours"
+                      value="Sunrise | Sunset | Golden hours"
+                      margin="normal"
+                      variant="outlined"
+                      float="center"
+                    />
+                  </Grid>
+
+                  <Grid items xs={12}>
+                    <div
+                      style={styling.imagedrop}
+                      value={this.state.newReadyPictures}
+                      onChange={this.newReadyPicturesChange}
+                    >
+                      <p>
+                        Took some neat photos at your photoshoot? Add them
+                        afterwards here!
+                        <br></br> You can add up to 5 pictures per plan.
+                      </p>
+
+                      <AddReadyPics
+                        readyPictures={this.state.newReadyPictures}
+                        planid={this.state.id}
+                        update={this.updatePage}
+                      />
+                      <div>
+                        <div style={this.hide()}>
+                          <p style={styling.paragraph}>
+                            Previously added photos:
+                          </p>
+                          <Grid container spacing={3} style={styling.gridPic}>
+                            {this.state.readyPictures.map(pic => (
+                              <Grid item xs={12} sm={6}>
+                                <Card>
+                                  <CardActionArea>
+                                    <CardMedia
+                                      component="img"
+                                      alt="Your picture"
+                                      height="150"
+                                      image={
+                                        "https://skp-datastore.s3-eu-west-1.amazonaws.com/" +
+                                        pic.url
+                                      }
+                                      title="Your picture"
+                                    />
+                                    <div style={styling.buttonArea}></div>
+                                  </CardActionArea>
+                                </Card>
+                              </Grid>
+                            ))}
+                          </Grid>
                         </div>
-
-
-                    </form>
-
-                </Box>
-            </div>
+                      </div>
+                    </div>
+                  </Grid>
+                </Grid>
+                <div style={styling.buttonAreaBottom}>
+                  <Button
+                    style={styling.button}
+                    size="small"
+                    color="default"
+                    variant="outlined"
+                    onClick={this.deleteThisPlan}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    style={styling.button}
+                    size="small"
+                    color="default"
+                    variant="outlined"
+                    onClick={this.editPlan}
+                  >
+                    Save
+                  </Button>
+                </div>
+              </form>
+            </Box>
+          </div>
         );
     }
 }

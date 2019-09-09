@@ -15,9 +15,8 @@ class AuthProvider extends Component {
 
   logIn = (username, password) => {
     const userData = { username, password };
-    console.log(userData)
     return axios
-      .post("http://localhost:8080/login", userData)
+      .post("https://skpback.herokuapp.com/login", userData)
       .then(res => {
         console.log("REDIRECT");
         console.log(res.headers.authorization);
@@ -49,7 +48,7 @@ class AuthProvider extends Component {
     const username = userdata.username
     const password = userdata.password
     const sendData = {email, username, password}
-    return axios.post("http://localhost:8080/api/users/sign-up", sendData)
+    return axios.post("https://skpback.herokuapp.com/api/users/sign-up", sendData)
       .then(res => {
         return res
       })
@@ -63,22 +62,20 @@ class AuthProvider extends Component {
 
   getData = (params) => {
     return axios
-      .get("http://localhost:8080/api/" + params, {
+      .get("https://skpback.herokuapp.com/api/" + params, {
         headers: {
           authorization: this.state.token
         }
       })
       .then(res => {
-        console.log(res.data)
         return res.data
       }).catch(err => {
-        console.log(err)
         throw new Error(err.response.data)
       })
   }
 
   postData = (params, data) => {
-    return axios.post("http://localhost:8080/api/" + params, data, {
+    return axios.post("https://skpback.herokuapp.com/api/" + params, data, {
       headers: {
         authorization: this.state.token
       }
@@ -92,12 +89,11 @@ class AuthProvider extends Component {
   }
 
   updateData = (id, params) => {
-    return axios.put("http://localhost:8080/api/plans/" + id, params, {
+    return axios.put("https://skpback.herokuapp.com/api/plans/" + id, params, {
       headers: {
         authorization: this.state.token
       }
     }).then(res => {
-      console.log(res.data);
       return res.data
     }).catch(err => {
       return err
@@ -106,7 +102,7 @@ class AuthProvider extends Component {
 
   //lisäys 26.08.2019 klo20:45
   getById = (id) => {
-    return axios.get('http://localhost:8080/api/' + id)
+    return axios.get('https://skpback.herokuapp.com/api/' + id)
         .then((response) => response)
         .catch(err => {
           return err
@@ -114,14 +110,14 @@ class AuthProvider extends Component {
   };
 
   deletePlan = (id) => {
-    return axios.delete('http://localhost:8080/api/plans/' +id,{
+    return axios.delete('https://skpback.herokuapp.com/plans/' +id,{
       headers: {
         authorization: this.state.token
       }})
   };
 
   deleteReference = (id) => {
-        return axios.delete('http://localhost:8080/api/images/' +id, {
+        return axios.delete('https://skpback.herokuapp.com/api/images/' +id, {
             headers: {
                 authorization: this.state.token
             }})
@@ -129,6 +125,7 @@ class AuthProvider extends Component {
 
 
   addReferencepictures = (id, params) => {
+    
       let formData = new FormData();
       formData.append("image1", params.referencePictures[0]);
       formData.append("image2", params.referencePictures[1]);
@@ -136,18 +133,23 @@ class AuthProvider extends Component {
       formData.append("image4", params.referencePictures[3]);
       formData.append("image5", params.referencePictures[4]);
 
-      console.log("Put request from authcontext: ", formData);
-
-    return axios.put("http://localhost:8080/api/plans/" + id + "/pictures", formData, {
+    return axios
+      .put(
+        "https://skpback.herokuapp.com/api/plans/" + id + "/pictures",
+        formData,
+        {
           headers: {
-              authorization: this.state.token
+            authorization: this.state.token
           }
-      }).then(res => {
-          console.log(res.data);
-          return res.data
-      }).catch(err => {
-          return err
+        }
+      )
+      .then(res => {
+        console.log(res.data);
+        return res.data;
       })
+      .catch(err => {
+        return err;
+      });
   };
 
   addReadyPictures = (id, params) => {
@@ -158,9 +160,7 @@ class AuthProvider extends Component {
       formData.append("image4", params.readyPictures[3]);
       formData.append("image5", params.readyPictures[4]);
 
-      console.log("Put request from authcontext: ", formData);
-
-      return axios.put("http://localhost:8080/api/plans/" + id + "/readypictures", formData, {
+      return axios.put("https://skpback.herokuapp.com/api/plans/" + id + "/readypictures", formData, {
           headers: {
               authorization: this.state.token
           }
